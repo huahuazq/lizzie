@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #nav li{
+            float: left;
+            list-style: none;
+            margin-left: 10px;
+            padding-right: 20px;
+        }
+        li a{
+            text-decoration: none;
+            color: hotpink;
+        }
+        div{
+            height: 300px;
+        }
+        #div1{
+            background: plum;
+            margin-top: 500px;
+        }
+        #div2{
+            background: hotpink;
+        }
+        #div3{
+            background: pink;
+            margin-bottom: 1000px;
+        }
+        .clearfix::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<ul id="nav" class="clearfix">
+    <li><a href="#div1">点我1</a></li>
+    <li><a href="#div2">点我2</a></li>
+    <li><a href="#div3">点我3</a></li>
+</ul>
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+</body>
+<script src="../jquery-1.11.2.js"></script>
+<script>
+    $(function () {
+        $('#nav a').on('click', function (e) {
+            var href = $(this).attr('href');
+            var top = $(href).offset().top;
+            $(document.body).animate({
+                scrollTop : top
+            }, 500);
+            history.pushState(top, '');//前后按钮
+            return false;
+        });
+        window.onpopstate = function(e){//每次点击返回还会触发这个事件
+            $(document.body).animate({
+                scrollTop : e.state //上面存什么值在这取什么值，上面存的scrollTop : top，点击返回按钮触发这个事件时就会滚动到指定位置scrollTop : e.state，指的top和e.state的一个对应关系，e.state指的点击返回按钮时回到的上一次位置的top
+            }, 500);
+        };
+    });
+</script>
+</html>

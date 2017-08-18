@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        li{
+            list-style: none;
+        }
+        img{
+            border: 0;
+        }
+        #container{
+            margin: 150px auto;
+            width: 520px;
+            height: 300px;
+            position: relative;
+        }
+        #img img{
+            display: none;
+            width: 520px;
+            height: 300px;
+        }
+        #img .select{
+            display: block;
+        }
+        #nav{
+            position: absolute;
+            bottom: 5px;
+            right: 2px;
+        }
+        #nav li, #arrows div{
+            float: left;
+            height: 20px;
+            width: 20px;
+            background: hotpink;
+            margin-right: 5px;
+            color: #fff;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+        }
+        /*#nav li:hover{*/
+            /*background: rebeccapurple;*/
+        /*}*/
+        #nav .select{
+            background: rebeccapurple;
+        }
+        #left{
+            position: absolute;
+            left: 6px;
+            top: 50%;
+        }
+        #right{
+            position: absolute;
+            right: 2px;
+            top: 50%;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="img">
+        <img src="img/fo1.jpg" alt="" class="select">
+        <img src="img/fo2.jpeg" alt="">
+        <img src="img/fo3.png" alt="">
+        <img src="img/fo4.jpg" alt="">
+    </div>
+    <ul id="nav">
+        <li class="select">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div id="arrows">
+        <div id="left">&lt;</div>
+        <div id="right">&gt;</div>
+    </div>
+</div>
+<script src="../html5/jquery-1.11.2.js"></script>
+<script>
+//    var oContainer = document.getElementById('container');
+//    var oNav = document.getElementById('nav');
+//    var aLi = oNav.getElementsByTagName('li');
+//    var oImg = document.getElementById('img');
+//    var aImg = oImg.getElementsByTagName('img');
+//    var oLeft = document.getElementById('left');
+//    var  oRight = document.getElementById('right');
+//    var nowIndex = 0;
+//    var timer;
+//    for(var i=0; i<aLi.length; i++){
+//        aLi[i].index = i;
+//        aLi[i].onmouseover = function () {
+//            nowIndex = this.index;
+//            changeImg();
+//        };
+//    }
+//    oLeft.onclick = oRight.onclick = function () {
+//        if(this == oLeft){
+//            nowIndex--;
+//            if(nowIndex == -1){
+//                nowIndex = aImg.length - 1;
+//            }
+//        }else{
+//            nowIndex++;
+//            if(nowIndex == aImg.length){
+//                nowIndex = 0;
+//            }
+//        }
+//        changeImg();
+//    };
+//    oContainer.onmouseover = function(){
+//        clearInterval(timer);
+//    };
+//    oContainer.onmouseout = function(){
+//        play();
+//    };
+//    play();
+//    function play() {
+//        timer = setInterval(function () {
+//            oRight.onclick();
+//        },1000);
+//    }
+//    function changeImg() {
+//        for(var i=0; i<aLi.length; i++){
+//            aLi[i].className = '';
+//            aImg[i].className = '';
+//        }
+//        aLi[nowIndex].className = 'select';
+//        aImg[nowIndex].className = 'select';
+//    }
+$(function(){
+    var nowIndex = 0;
+    var timer;
+    var $lis =  $("#nav li");
+    var $imgs = $("#img img");
+    $lis.on("mouseover", function(){
+        nowIndex = $(this).index();
+        changeImg();
+    });
+    $("#arrows div").on("click", function(){
+        if($(this).attr("id") == "left"){
+            nowIndex--;
+            if(nowIndex == -1){
+                nowIndex = $lis.length - 1;
+            }
+        }else{
+            nowIndex++;
+            if(nowIndex == $lis.length){
+                nowIndex = 0;
+            }
+        }
+        changeImg();
+    });
+    $("#container").hover(function(){
+        clearInterval(timer);
+    }, function(){
+        play();
+    });
+    play();
+
+    function play(){
+        timer = setInterval(function(){
+            $("#right").trigger("click");
+        }, 1000);
+    }
+    function changeImg(){
+        $lis.eq(nowIndex).addClass("select").siblings().removeClass("select");
+        $imgs.eq(nowIndex).addClass("select").siblings().removeClass("select");
+    }
+});
+</script>
+</body>
+</html>

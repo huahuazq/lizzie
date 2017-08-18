@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style: none;
+        }
+        #menu{
+            width: 100px;
+            border: 1px solid plum;
+            margin: 200px auto;
+        }
+        #menu h3{
+            color: #fff;
+            text-align: center;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            background: hotpink;
+            cursor: pointer;
+        }
+         .select{
+            display: none;
+        }
+        .select li{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<ul id="menu">
+    <li>
+        <h3>浪花一朵朵</h3>
+        <ul class="select">
+            <li>唐一白</li>
+            <li>云朵</li>
+        </ul>
+    </li>
+    <li>
+        <h3>三生三世</h3>
+        <ul class="select">
+            <li>白浅</li>
+            <li>夜华</li>
+        </ul>
+    </li>
+</ul>
+<!--<script src="../html5/jquery-1.11.2.js"></script>-->
+<script>
+    //第一种
+//    var oMenu = document.getElementById('menu');
+//    var aH3 = oMenu.getElementsByTagName('h3');
+//    var aSelect = oMenu.getElementsByTagName('ul');
+//    for(var i=0; i<aH3.length; i++){
+//        aH3[i].index = i;
+//        aH3.bFlag = false;
+//        aH3[i].onclick = function () {
+//            if(this.bFlag){
+//                aSelect[this.index].style.display = 'none';
+//            }else{
+//                aSelect[this.index].style.display = 'block';
+//            }
+//            this.bFlag = !this.bFlag;
+//        };
+//    }
+    //第二种
+//    $(function () {
+//        $('#menu h3').on('click', function () {
+//            $(this).next().stop(false, true).slideToggle();
+//        });
+//    });
+    //第三种
+    var oMenu = document.getElementById('menu');
+    var aH3 = oMenu.getElementsByTagName('h3');
+    for(var i=0; i<aH3.length; i++){
+        aH3[i].index = i;
+        aH3[i].onclick = function () {
+            var select = next(this);
+            if(select.style.display == 'block'){
+                select.style.display = 'none';
+            }else{
+                select.style.display = 'block';
+            }
+        };
+    }
+    function next(elem) {
+        do{
+            elem = elem.nextSibling;
+        }while(elem && elem.nodeType != 1);
+        return elem;
+    }
+</script>
+</body>
+</html>
